@@ -11,6 +11,4 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   const categoriesAndQuery = await fetchData.json();
   console.log('catQuery ', categoriesAndQuery);
   return categoriesAndQuery;
-  /* const filter = categories.filter((el) => el.name.includes(produto) || el.id.includes(umId));
-  console.log('fil', filter); */
 }

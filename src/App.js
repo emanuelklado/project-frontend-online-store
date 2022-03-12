@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+// import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import Search from './components/Search';
 
 export default class App extends Component {
@@ -11,8 +11,7 @@ export default class App extends Component {
   } */
 
   componentDidMount() {
-    console.log(getCategories('Agro'));
-    console.log(getProductsFromCategoryAndQuery('MLB1071', 'Animais'));
+
   }
 
   render() {
