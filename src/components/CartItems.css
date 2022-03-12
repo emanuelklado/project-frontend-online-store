@@ -1,5 +1,6 @@
 .goback-symbol {
   margin: 20px 0 10px 20px;
+  width: fit-content;
 }
 
 .goback-symbol:hover {

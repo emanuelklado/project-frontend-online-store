@@ -20,7 +20,7 @@ class CartItems extends Component {
         <div>
           <div
             onClick={ this.getBack }
-            onKeyDown={ () => console.log('Lint made me do it.') }
+            onKeyDown={ () => {} }
             role="button"
             tabIndex="0"
             className="goback-symbol"
