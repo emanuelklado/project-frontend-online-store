@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+// import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import Search from './components/Search';
+import CartItems from './components/CartItems';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  /* constructor() {
+    super();
+
+  } */
+
+  componentDidMount() {
+
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/cart" component={ CartItems } />
+          <Route exact path="/" component={ Search } />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
-
-export default App;
