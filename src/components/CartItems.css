@@ -1,0 +1,25 @@
+.goback-symbol {
+  margin: 20px 0 10px 20px;
+}
+
+.goback-symbol:hover {
+  cursor: pointer;
+}
+
+.cart-image-container {
+  display: flex;
+  margin-left: 20px;
+}
+
+.cart-image-container p {
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.empty-cart {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  padding-top: 50px;
+}
