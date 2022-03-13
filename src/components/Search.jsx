@@ -61,7 +61,6 @@ class Search extends Component {
               </button>
             ))}
           </aside>
-
         </div>
       </div>
     );
