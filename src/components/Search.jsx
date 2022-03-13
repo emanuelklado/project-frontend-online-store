@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Search.css';
 import CartImage from './CartImage';
 
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
 
 class Search extends Component {
   constructor() {
@@ -21,7 +21,7 @@ class Search extends Component {
   }
 
   getAllCategories = async () => {
-    const requestCategories = await api.getCategories();
+    const requestCategories = await getCategories();
     this.setState({
       categories: requestCategories,
     });
