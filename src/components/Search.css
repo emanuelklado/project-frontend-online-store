@@ -1,4 +1,4 @@
-.input-container {
+.container-content {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,19 @@
   top: 12px;
 }
 
+.Button-Search {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 30px;
+  margin: 5px;
+  padding: 5px;
+  width: 70px;
+}
+
+.container-card {
+  border: 2px solid red;
+}
+
 .categories-container {
   display: flex;
   flex-direction: column;
@@ -33,3 +46,4 @@
   flex-direction: column;
   width: 18%;
 }
+
