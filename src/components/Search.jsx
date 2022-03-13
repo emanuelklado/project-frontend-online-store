@@ -34,7 +34,7 @@ class Search extends Component {
             id="input-search"
             className="home-input"
             onChange={ this.handleInput }
-            //value={ categorieNameSelected }
+            // value={ categorieNameSelected }
           />
           <Link to="/cart" data-testid="shopping-cart-button" className="cart-img">
             <CartImage />
