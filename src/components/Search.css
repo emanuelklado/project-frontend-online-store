@@ -34,3 +34,16 @@
 .container-card {
   border: 2px solid red;
 }
+
+.categories-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  width: 18%;
+}
+

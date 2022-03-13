@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Search.css';
 import CartImage from './CartImage';
+
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Search extends Component {
@@ -11,7 +12,19 @@ class Search extends Component {
     this.state = {
       searchIt: '',
       productList: [],
+      categories: [],
     };
+  }
+
+  componentDidMount() {
+    this.getAllCategories();
+  }
+
+  getAllCategories = async () => {
+    const requestCategories = await api.getCategories();
+    this.setState({
+      categories: requestCategories,
+    });
   }
 
   inputC = ({ target: { name, value, type, checked } }) => {
@@ -24,10 +37,6 @@ class Search extends Component {
   buttonClick = async () => {
     const { searchIt } = this.state;
 
-    // this.setState({
-    //   saveIt: searchIt,
-    // });
-
     const result = await getProductsFromCategoryAndQuery('', searchIt);
 
     this.setState({
@@ -37,8 +46,9 @@ class Search extends Component {
   }
 
   render() {
-    const { searchIt, productList } = this.state;
+    const { searchIt, productList, categories } = this.state;
     console.log('lista,', productList);
+
     return (
       <div className="container-content">
         <label htmlFor="searchIt" className="home-input-label">
@@ -51,6 +61,7 @@ class Search extends Component {
             onChange={ this.inputC }
             value={ searchIt }
             placeholder="Pesquisar produto"
+            // value={ categorieNameSelected }
           />
           <button
             data-testid="query-button"
@@ -94,6 +105,23 @@ class Search extends Component {
               </div>
             </div>
           ))}
+
+          <div className="categories-container">
+            <section>
+              <h2>Categorias</h2>
+            </section>
+            <aside className="buttons-container">
+              {categories.map((cat) => (
+                <button
+                  key={ cat.id }
+                  type="button"
+                  data-testid="category"
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </aside>
+          </div>
         </div>
       </div>
     );
