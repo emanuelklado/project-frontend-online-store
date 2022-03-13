@@ -21,3 +21,15 @@
   position: relative;
   top: 12px;
 }
+
+.categories-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  width: 18%;
+}
