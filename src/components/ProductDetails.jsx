@@ -34,6 +34,7 @@ class ProductDetails extends Component {
     const { match: { params } } = this.props;
     const { id } = params;
     const product = await getProductByProductId(id);
+    console.log('produto ', product);
     return product;
   }
 
@@ -42,7 +43,7 @@ class ProductDetails extends Component {
     case 'new':
       return 'Novo';
     case 'used':
-      return 'Novo';
+      return 'Usado';
     default:
       return 'Não Especificada';
     }
