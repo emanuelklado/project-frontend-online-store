@@ -45,6 +45,15 @@ class Search extends Component {
     });
   }
 
+  handleCategory = async ({ target }) => {
+    const query = target.textContent;
+    const catResult = await getProductsFromCategoryAndQuery('', query);
+    this.setState({
+      productList: catResult.results,
+      searchIt: query,
+    });
+  }
+
   render() {
     const { searchIt, productList, categories } = this.state;
     console.log('lista,', productList);
@@ -116,6 +125,7 @@ class Search extends Component {
                   key={ cat.id }
                   type="button"
                   data-testid="category"
+                  onClick={ this.handleCategory }
                 >
                   {cat.name}
                 </button>
