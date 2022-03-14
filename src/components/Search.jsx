@@ -56,7 +56,6 @@ class Search extends Component {
 
   render() {
     const { searchIt, productList, categories } = this.state;
-    console.log('lista,', productList);
 
     return (
       <div className="container-content">
@@ -109,8 +108,10 @@ class Search extends Component {
               key={ element.id }
             >
               <div>
-                <img src={ element.thumbnail } alt={ element.title } />
-                <p>{ element.title }</p>
+                <Link to={ `/product/${element.id}` } data-testid="product-detail-link">
+                  <img src={ element.thumbnail } alt={ element.title } />
+                  <p>{ element.title }</p>
+                </Link>
               </div>
             </div>
           ))}
