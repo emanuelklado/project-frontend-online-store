@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import goBackSymbol from '../images/goback-symbol.png';
 import CartImage from './CartImage';
 import emptyCartImg from '../images/empty-shipping-box-removebg-preview.png';
 import './CartItems.css';
 
 class CartItems extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
+  constructor() {
+    super();
+    this.state = {
 
-  //   };
-  // }
+    };
+  }
 
   getCounter = (element, array) => {
     const filtred = array.filter((param) => param.id === element.id);
@@ -23,27 +24,23 @@ class CartItems extends Component {
 
   // }
 
-  getBack = () => {
-    const { history } = this.props;
+  /* getBack = () => {
+    const { history, value } = this.props;
     const lastPage = -1;
+    if (value) {
+      return value.history.go(lastPage);
+    }
     return history.go(lastPage);
-  }
+  } */
 
   render() {
     const { listCartSaved } = this.props;
-    console.log(listCartSaved);
     return (
       <>
         <div>
-          <div
-            onClick={ this.getBack }
-            onKeyDown={ () => {} }
-            role="button"
-            tabIndex="0"
-            className="goback-symbol"
-          >
-            <img src={ goBackSymbol } alt="goback" />
-          </div>
+          <Link exact to="/">
+            <img src={ goBackSymbol } alt="goback" className="goback-symbol" />
+          </Link>
           <div className="cart-image-container">
             <CartImage />
             <p>Carrinho de Compras</p>
@@ -62,8 +59,9 @@ class CartItems extends Component {
                 </p>
                 <p data-testid="shopping-cart-product-quantity">
                   Quantidade:
-                  {/* {item.quantity} */}
-                  {this.getCounter(item, listCartSaved)}
+                  {item.quantity}
+                  {/* this.getCounter(item, listCartSaved) */}
+
                 </p>
               </div>
             ))
@@ -84,11 +82,11 @@ class CartItems extends Component {
 }
 
 CartItems.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
+  /* history: PropTypes.objectOf(PropTypes.any), */
   listCartSaved: PropTypes.string.isRequired,
 };
 
 CartItems.defaultProps = {
-  history: {},
+  /* history: {}, */
 };
 export default CartItems;
