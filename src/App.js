@@ -52,13 +52,19 @@ export default class App extends Component {
               listCartSaved={ listCartSaved }
             />) }
           />
-          <Route exact path="/product/:id" component={ ProductDetails } />
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => (<ProductDetails
+              { ...props }
+              handleSetStateListCartSaved={ this.handleSetStateListCartSaved }
+            />) }
+          />
           <Route
             exact
             path="/"
             render={ () => (<Search
               handleSetStateListCartSaved={ this.handleSetStateListCartSaved }
-              history={ this.history }
             />) }
           />
         </Switch>

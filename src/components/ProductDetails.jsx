@@ -24,6 +24,13 @@ class ProductDetails extends Component {
     this.productSetState();
   }
 
+  handleAddToCart = async () => {
+    const productAdd = await this.findProductInfo();
+
+    const { handleSetStateListCartSaved } = this.props;
+    handleSetStateListCartSaved(productAdd);
+  }
+
   getBack = () => {
     const { history } = this.props;
     const lastPage = -1;
@@ -35,6 +42,7 @@ class ProductDetails extends Component {
     const { id } = params;
     const product = await getProductByProductId(id);
     console.log('produto ', product);
+    console.log(params);
     return product;
   }
 
@@ -114,6 +122,13 @@ class ProductDetails extends Component {
               </li>
             </ul>
           </div>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.handleAddToCart }
+          >
+            Add
+          </button>
         </div>
       </div>
     );
@@ -123,6 +138,7 @@ class ProductDetails extends Component {
 ProductDetails.propTypes = {
   match: PropTypes.objectOf(PropTypes.any),
   history: PropTypes.objectOf(PropTypes.any),
+  handleSetStateListCartSaved: PropTypes.func.isRequired,
 };
 
 ProductDetails.defaultProps = {
