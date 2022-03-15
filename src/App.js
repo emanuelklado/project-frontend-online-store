@@ -18,11 +18,26 @@ export default class App extends Component {
 
   }
 
-  handleSetStateListCartSaved = (obj) => {
+  checkSaved = (obj) => {
     const { listCartSaved } = this.state;
-    this.setState({
-      listCartSaved: [...listCartSaved, obj],
-    });
+    const alreadyExists = listCartSaved.find((item) => item.id === obj.id);
+    if (alreadyExists) {
+      const newQuantity = alreadyExists.quantity + 1;
+      const isSaved = listCartSaved.map((item) => (item.id === obj.id
+        ? { ...obj, quantity: newQuantity }
+        : item));
+      this.setState({
+        listCartSaved: isSaved,
+      });
+    } else {
+      this.setState({
+        listCartSaved: [...listCartSaved, { ...obj, quantity: 1 }],
+      });
+    }
+  }
+
+  handleSetStateListCartSaved = (obj) => {
+    this.checkSaved(obj);
   }
 
   render() {
@@ -43,6 +58,7 @@ export default class App extends Component {
             path="/"
             render={ () => (<Search
               handleSetStateListCartSaved={ this.handleSetStateListCartSaved }
+              history={ this.history }
             />) }
           />
         </Switch>
