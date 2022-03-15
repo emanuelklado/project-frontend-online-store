@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Search.css';
+import PropTypes from 'prop-types';
 import CartImage from './CartImage';
 
-import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import { getProductsFromCategoryAndQuery,
+  getCategories,
+  getProductByProductId } from '../services/api';
 
 class Search extends Component {
   constructor() {
     super();
-
     this.state = {
       searchIt: '',
       productList: [],
@@ -52,6 +54,20 @@ class Search extends Component {
       productList: catResult.results,
       searchIt: query,
     });
+  }
+
+  handleAddToCart = async ({ target }) => {
+    console.log(target.id);
+    const productAdd = await getProductByProductId(target.id);
+    console.log('add', productAdd);
+    const { handleSetStateListCartSaved } = this.props;
+    // if (productAdd.quantity) {
+    //   productAdd.quantity += 1;
+    // } else {
+    //   productAdd.quantity = 1;
+    // }
+    productAdd.isRendered = false;
+    handleSetStateListCartSaved(productAdd);
   }
 
   render() {
@@ -111,7 +127,20 @@ class Search extends Component {
                 <Link to={ `/product/${element.id}` } data-testid="product-detail-link">
                   <img src={ element.thumbnail } alt={ element.title } />
                   <p>{ element.title }</p>
+                  <p>{`Preço: R$ ${element.price}`}</p>
+
                 </Link>
+                <div>
+                  <button
+                    id={ element.id }
+                    type="button"
+                    onClick={ this.handleAddToCart }
+                    data-testid="product-add-to-cart"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+
               </div>
             </div>
           ))}
@@ -138,5 +167,9 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  handleSetStateListCartSaved: PropTypes.func.isRequired,
+};
 
 export default Search;
