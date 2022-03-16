@@ -40,26 +40,26 @@ class CartItems extends Component {
     const { id } = target;
     const { handleSubButton } = this.props;
     handleSubButton(id);
-    this.checkSaved(id);
+    this.checkDisabled(id);
   }
 
   handleTest2 = ({ target }) => {
     const { id } = target;
     const { handleAddButton } = this.props;
     handleAddButton(id);
-    this.checkSaved(id);
+    this.checkDisabled(id);
   }
 
   getDisabled = () => {
     const { listCartSaved } = this.props;
     listCartSaved.forEach((item) => {
       this.setState({
-        [`isDisable${item.id}`]: false,
+        [`isDisabled${item.id}`]: false,
       });
     });
   }
 
-  checkSaved = (id) => {
+  checkDisabled = (id) => {
     const { listCartSaved } = this.props;
     const obj = listCartSaved.find((item) => item.id === id);
     const { quantity } = obj;
@@ -107,7 +107,7 @@ class CartItems extends Component {
                     id={ item.id }
                     disabled={ state[`isDisabled${item.id}`] }
                     onClick={ this.handleTest }
-                    // </p>/handleSubButton={ handleSubButton }
+                    // /handleSubButton={ handleSubButton }
                   >
                     -
                   </button>

@@ -68,7 +68,7 @@ export default class App extends Component {
     this.setState({
       listCartSaved: subtractState,
     });
-    this.forceUpdate();
+    /* this.forceUpdate(); */
     console.log('back ', backupCartList);
   }
 
