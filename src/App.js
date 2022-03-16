@@ -40,6 +40,38 @@ export default class App extends Component {
     this.checkSaved(obj);
   }
 
+  handleAddButton = (id) => {
+    const { listCartSaved } = this.state;
+    const backupCartList = Array.from(listCartSaved);
+    const addState = backupCartList.reduce((acc, curr) => {
+      if (curr.id === id) {
+        curr.quantity += 1;
+      }
+      acc.push(curr);
+      return acc;
+    }, []);
+    this.setState({
+      listCartSaved: addState,
+    });
+  }
+
+  handleSubButton = (id) => {
+    const { listCartSaved } = this.state;
+    const backupCartList = Array.from(listCartSaved);
+    const subtractState = backupCartList.reduce((acc, curr) => {
+      if (curr.id === id) {
+        curr.quantity -= 1;
+      }
+      acc.push(curr);
+      return acc;
+    }, []);
+    this.setState({
+      listCartSaved: subtractState,
+    });
+    this.forceUpdate();
+    console.log('back ', backupCartList);
+  }
+
   render() {
     const { listCartSaved } = this.state;
     return (
@@ -50,6 +82,8 @@ export default class App extends Component {
             path="/cart"
             render={ () => (<CartItems
               listCartSaved={ listCartSaved }
+              handleAddButton={ this.handleAddButton }
+              handleSubButton={ this.handleSubButton }
             />) }
           />
           <Route

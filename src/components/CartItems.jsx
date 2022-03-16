@@ -32,9 +32,46 @@ class CartItems extends Component {
     }
     return history.go(lastPage);
   } */
+  componentDidMount() {
+    this.getDisabled();
+  }
+
+  handleTest = ({ target }) => {
+    const { id } = target;
+    const { handleSubButton } = this.props;
+    handleSubButton(id);
+    this.checkSaved(id);
+  }
+
+  handleTest2 = ({ target }) => {
+    const { id } = target;
+    const { handleAddButton } = this.props;
+    handleAddButton(id);
+    this.checkSaved(id);
+  }
+
+  getDisabled = () => {
+    const { listCartSaved } = this.props;
+    listCartSaved.forEach((item) => {
+      this.setState({
+        [`isDisable${item.id}`]: false,
+      });
+    });
+  }
+
+  checkSaved = (id) => {
+    const { listCartSaved } = this.props;
+    const obj = listCartSaved.find((item) => item.id === id);
+    const { quantity } = obj;
+    const boolQuantity = quantity === 0;
+    this.setState({
+      [`isDisabled${id}`]: boolQuantity,
+    });
+  }
 
   render() {
-    const { listCartSaved } = this.props;
+    const { listCartSaved, handleAddButton, handleSubButton } = this.props;
+    const { state } = this;
     return (
       <>
         <div>
@@ -57,12 +94,35 @@ class CartItems extends Component {
                   {' '}
                   {item.price}
                 </p>
-                <p data-testid="shopping-cart-product-quantity">
+                <div>
                   Quantidade:
-                  {item.quantity}
-                  {/* this.getCounter(item, listCartSaved) */}
+                  <p data-testid="shopping-cart-product-quantity">
+                    {item.quantity}
+                  </p>
 
-                </p>
+                  <button
+                    type="button"
+                    name="decrease"
+                    data-testid="product-decrease-quantity"
+                    id={ item.id }
+                    disabled={ state[`isDisabled${item.id}`] }
+                    onClick={ this.handleTest }
+                    // </p>/handleSubButton={ handleSubButton }
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    name="add"
+                    data-testid="product-increase-quantity"
+                    id={ item.id }
+                    onClick={ this.handleTest2 }
+
+                  >
+                    +
+                  </button>
+
+                </div>
               </div>
             ))
             : (

@@ -57,9 +57,8 @@ class Search extends Component {
   }
 
   handleAddToCart = async ({ target }) => {
-    console.log(target.id);
     const productAdd = await getProductByProductId(target.id);
-    console.log('add', productAdd);
+    /* console.log('add', productAdd); */
     const { handleSetStateListCartSaved } = this.props;
     // if (productAdd.quantity) {
     //   productAdd.quantity += 1;
