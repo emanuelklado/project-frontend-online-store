@@ -130,6 +130,47 @@ class ProductDetails extends Component {
             Add
           </button>
         </div>
+
+        <h3>Avaliações</h3>
+        <div className="form-container">
+          <form>
+            <div className="form-container-inside">
+              <input
+                data-testid="product-detail-email"
+                type="text"
+                name="form-comment"
+                placeholder="Email"
+                className="form-input-email"
+              />
+
+              <input data-testid="???" type="radio" name="r-star" value="" />
+              <input type="radio" name="r-star" value="" />
+              <input type="radio" name="r-star" value="" />
+              <input type="radio" name="r-star" value="" />
+              <input type="radio" name="r-star" value="" />
+
+            </div>
+            <hr />
+            <textarea
+              data-testid="product-detail-evaluation"
+              type="text"
+              name="text-area-input"
+              rows="6"
+              cols="50"
+              className="text-area"
+              placeholder="Mensagem (opcional)"
+            />
+            <div>
+              <button
+                data-testid="submit-review-btn"
+                type="submit"
+                id="btn-form-av"
+              >
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
