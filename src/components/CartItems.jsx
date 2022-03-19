@@ -70,7 +70,7 @@ class CartItems extends Component {
   }
 
   render() {
-    const { listCartSaved, handleAddButton, handleSubButton } = this.props;
+    const { listCartSaved } = this.props;
     const { state } = this;
     return (
       <>

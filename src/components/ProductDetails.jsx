@@ -16,6 +16,8 @@ class ProductDetails extends Component {
       mercadoPagoBool: false,
       productBrand: '',
       productCondition: '',
+      emailInput: '',
+      textAreaInput: '',
     };
   }
 
@@ -74,9 +76,21 @@ class ProductDetails extends Component {
     });
   }
 
+  onInputChange = ({ target }) => {
+    const { value, name } = target;
+
+    this.setState({
+      [name]: value, // o name recebe o value name="value" pq tem o []
+    }, () => console.log(this.state));
+  }
+
+  submitEvaluation = () => {
+
+  }
+
   render() {
     const { productName, productImgUrl, priceValue,
-      mercadoPagoBool, productBrand, productCondition } = this.state;
+      mercadoPagoBool, productBrand, productCondition, textAreaInput, emailInput } = this.state;
     return (
       <div>
         <div className="favicons-container">
@@ -132,46 +146,83 @@ class ProductDetails extends Component {
         </div>
 
         <h3>Avaliações</h3>
-        <div className="form-container">
-          <form>
-            <div className="form-container-inside">
-              <input
-                data-testid="product-detail-email"
-                type="text"
-                name="form-comment"
-                placeholder="Email"
-                className="form-input-email"
-              />
 
-              <input data-testid="???" type="radio" name="r-star" value="" />
-              <input type="radio" name="r-star" value="" />
-              <input type="radio" name="r-star" value="" />
-              <input type="radio" name="r-star" value="" />
-              <input type="radio" name="r-star" value="" />
-
-            </div>
-            <hr />
-            <textarea
-              data-testid="product-detail-evaluation"
+        <form>
+          <div className="form-container-inside">
+            <input
+              data-testid="product-detail-email"
               type="text"
-              name="text-area-input"
-              rows="6"
-              cols="50"
-              className="text-area"
-              placeholder="Mensagem (opcional)"
+              name="emailInput"
+              placeholder="Email"
+              className="form-input-email"
+              onChange={ this.onInputChange }
+              value={ emailInput }
             />
-            <div>
-              <button
-                data-testid="submit-review-btn"
-                type="submit"
-                id="btn-form-av"
-              >
-                Enviar
-              </button>
-            </div>
-          </form>
-        </div>
+
+            <label htmlFor="r-star">
+              <input
+                data-testid="1-rating"
+
+                type="radio"
+                name="r-star"
+                value="1"
+              />
+              <input
+                data-testid="2-rating"
+
+                type="radio"
+                name="r-star"
+                value="2"
+              />
+              <input
+                data-testid="3-rating"
+
+                type="radio"
+                name="r-star"
+                value="3"
+              />
+              <input
+                data-testid="4-rating"
+
+                type="radio"
+                name="r-star"
+                value="4"
+              />
+              <input
+                data-testid="5-rating"
+
+                type="radio"
+                name="r-star"
+                value="5"
+              />
+            </label>
+
+          </div>
+          <hr />
+          <textarea
+            data-testid="product-detail-evaluation"
+            type="text"
+            name="textAreaInput"
+            rows="6"
+            cols="50"
+            className="text-area"
+            placeholder="Mensagem (opcional)"
+            value={ textAreaInput }
+            onChange={ this.onInputChange }
+          />
+          <div>
+            <button
+              data-testid="submit-review-btn"
+              type="submit"
+              id="btn-form-av"
+              onClick={ this.submitEvaluation }
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
       </div>
+
     );
   }
 }
