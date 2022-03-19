@@ -14,12 +14,6 @@ class CartItems extends Component {
     };
   }
 
-  getCounter = (element, array) => {
-    const filtred = array.filter((param) => param.id === element.id);
-    const counter = filtred.length;
-    return counter;
-  }
-
   // getRendered = (element) => {
 
   // }
@@ -34,6 +28,12 @@ class CartItems extends Component {
   } */
   componentDidMount() {
     this.getDisabled();
+  }
+
+  getCounter = (element, array) => {
+    const filtred = array.filter((param) => param.id === element.id);
+    const counter = filtred.length;
+    return counter;
   }
 
   handleTest = ({ target }) => {
@@ -144,9 +144,12 @@ class CartItems extends Component {
 CartItems.propTypes = {
   /* history: PropTypes.objectOf(PropTypes.any), */
   listCartSaved: PropTypes.string.isRequired,
+  handleAddButton: PropTypes.func.isRequired,
+  handleSubButton: PropTypes.func.isRequired,
 };
 
 CartItems.defaultProps = {
   /* history: {}, */
 };
+
 export default CartItems;

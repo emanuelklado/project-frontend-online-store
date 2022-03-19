@@ -18,17 +18,19 @@ class ProductDetails extends Component {
       productCondition: '',
       emailInput: '',
       textAreaInput: '',
+      radioInput: 0,
+      storagedEvaluations: [],
     };
   }
 
   componentDidMount() {
     this.findProductInfo();
     this.productSetState();
+    this.getEvaluation();
   }
 
   handleAddToCart = async () => {
     const productAdd = await this.findProductInfo();
-
     const { handleSetStateListCartSaved } = this.props;
     handleSetStateListCartSaved(productAdd);
   }
@@ -43,20 +45,12 @@ class ProductDetails extends Component {
     const { match: { params } } = this.props;
     const { id } = params;
     const product = await getProductByProductId(id);
-    console.log('produto ', product);
-    console.log(params);
     return product;
   }
 
   getCondition = (condition) => {
-    switch (condition) {
-    case 'new':
-      return 'Novo';
-    case 'used':
-      return 'Usado';
-    default:
-      return 'Não Especificada';
-    }
+    const conditionObj = {new: 'Novo', used: 'Usado'}
+    return conditionObj[condition] || 'Não especificado';
   }
 
   productSetState = async () => {
@@ -78,19 +72,43 @@ class ProductDetails extends Component {
 
   onInputChange = ({ target }) => {
     const { value, name } = target;
-
     this.setState({
       [name]: value, // o name recebe o value name="value" pq tem o []
-    }, () => console.log(this.state));
+    });
   }
 
   submitEvaluation = () => {
+    const { emailInput, textAreaInput, radioInput } = this.state;
+    const stateObj = {
+      emailInput,
+      textAreaInput,
+      radioInput,
+    };
+    const saved = JSON.parse(localStorage.getItem('teste'));
+    if (saved) {
+      localStorage.setItem('teste', JSON.stringify([...saved, stateObj]));
+    } else {
+      localStorage.setItem('teste', JSON.stringify([stateObj]));
+    }
+    this.setState({
+      emailInput: '',
+      textAreaInput: '',
+      radioInput: 0,
+    })
+    this.getEvaluation();
+  }
 
+  getEvaluation = () => {
+    const storagedEvaluations = JSON.parse(localStorage.getItem('teste'));
+    this.setState({
+      storagedEvaluations,
+    });
   }
 
   render() {
     const { productName, productImgUrl, priceValue,
-      mercadoPagoBool, productBrand, productCondition, textAreaInput, emailInput } = this.state;
+      mercadoPagoBool, productBrand, productCondition,
+      textAreaInput, emailInput, storagedEvaluations } = this.state;
     return (
       <div>
         <div className="favicons-container">
@@ -114,7 +132,6 @@ class ProductDetails extends Component {
         </h3>
         <h3 className="product-title">
           Preço: R$
-          {' '}
           {priceValue}
         </h3>
         <div className="specs-container">
@@ -144,9 +161,7 @@ class ProductDetails extends Component {
             Add
           </button>
         </div>
-
-        <h3>Avaliações</h3>
-
+        <h3> Avalie o produto </h3>
         <form>
           <div className="form-container-inside">
             <input
@@ -158,53 +173,25 @@ class ProductDetails extends Component {
               onChange={ this.onInputChange }
               value={ emailInput }
             />
-
             <label htmlFor="r-star">
-              <input
-                data-testid="1-rating"
-
+            {
+              [1,2,3,4,5].map((item) => (
+                <input
+                data-testid={`${item}-rating`}
                 type="radio"
-                name="r-star"
-                value="1"
+                name="radioInput"
+                value={item}
+                onChange={ this.onInputChange }
               />
-              <input
-                data-testid="2-rating"
-
-                type="radio"
-                name="r-star"
-                value="2"
-              />
-              <input
-                data-testid="3-rating"
-
-                type="radio"
-                name="r-star"
-                value="3"
-              />
-              <input
-                data-testid="4-rating"
-
-                type="radio"
-                name="r-star"
-                value="4"
-              />
-              <input
-                data-testid="5-rating"
-
-                type="radio"
-                name="r-star"
-                value="5"
-              />
+              ))
+            }
             </label>
-
           </div>
           <hr />
           <textarea
             data-testid="product-detail-evaluation"
             type="text"
             name="textAreaInput"
-            rows="6"
-            cols="50"
             className="text-area"
             placeholder="Mensagem (opcional)"
             value={ textAreaInput }
@@ -213,7 +200,7 @@ class ProductDetails extends Component {
           <div>
             <button
               data-testid="submit-review-btn"
-              type="submit"
+              type="button"
               id="btn-form-av"
               onClick={ this.submitEvaluation }
             >
@@ -221,6 +208,22 @@ class ProductDetails extends Component {
             </button>
           </div>
         </form>
+        <div>
+          <h3> Avaliações </h3>
+          {
+            storagedEvaluations?.map((item, index) => (
+              <div key={ `item.emailInput${index}` }>
+                <h4>
+                  {item.emailInput}
+                </h4>
+                <p>{item.textAreaInput}</p>
+                <p>
+                  {item.radioInput}
+                </p>
+              </div>
+            ))
+          }
+        </div>
       </div>
 
     );
