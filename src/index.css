@@ -1,3 +1,14 @@
+.color1 { color: #ffc744;}
+
+.color2 { color: #ffff57;}
+
+.color3 { color: #2c1700;}
+
+.color4 { color: #7b7672;}
+
+.color5 { color: #e2e2e2;}
+
+
 *:focus {
   outline: none;
 }
@@ -13,6 +24,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:#e2e2e2;
+  color: #2c1700;
 }
 
 code {
